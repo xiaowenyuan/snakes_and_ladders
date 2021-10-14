@@ -237,8 +237,10 @@ def each_turn(players, number_of_dice, grid):
             print(f'Player {player} has moved to square {new_square_number}')
             generate_grid(grid, players)
         else:
+            grid[len(grid)-1].stepped_on(player)
             print(f'Player {player} has reached the end.')
             print(f'Player {player} has won the game.')
+            generate_grid(grid, players)
             return True
     return False
 

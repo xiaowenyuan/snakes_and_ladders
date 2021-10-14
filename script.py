@@ -151,41 +151,27 @@ def generate_squares(n):
 def set_board_snakes(n, list_of_squares):
     for i in range(1, n+1):
         snake_head = randrange(10, len(list_of_squares)-1) - 1
-        is_snake_head_square_free = list_of_squares[snake_head].query_is_free()
-        while not is_snake_head_square_free:
+        while list_of_squares[snake_head].query_if_ladder_top() == True or list_of_squares[snake_head].query_if_ladder_bottom() == True or list_of_squares[snake_head].query_if_snake_tail() == True:
             snake_head = randrange(11, len(list_of_squares)-1) - 1
-            is_snake_head_square_free = list_of_squares[snake_head].query_is_free()
         snake_tail = randrange(2, list_of_squares[snake_head].get_number()) - 1
-        is_snake_tail_square_free = list_of_squares[snake_tail].query_is_free()
-        while not is_snake_tail_square_free:
+        while list_of_squares[snake_tail].query_if_ladder_top() == True or list_of_squares[snake_tail].query_if_ladder_bottom() == True or list_of_squares[snake_tail].query_if_snake_head() == True:
             snake_tail = randrange(2, list_of_squares[snake_head].get_number()) - 1
-            is_snake_tail_square_free = list_of_squares[snake_tail].query_is_free()
         list_of_squares[snake_head].set_snake_head(list_of_squares[snake_tail])
 
 def set_board_ladders(n, list_of_squares):
     for i in range(1, n+1):
         #randomise square that will be the bottom of the ladder
         ladder_bottom = randrange(2, len(list_of_squares) - 10) - 1
-        is_ladder_bottom_square_free = list_of_squares[ladder_bottom].query_is_free()
         #check if the square already is a snake head, snake tail, or another ladder top or bottom
-        while not is_ladder_bottom_square_free:
+        while list_of_squares[ladder_bottom].query_if_ladder_top() == True or list_of_squares[ladder_bottom].query_if_snake_tail() == True or list_of_squares[ladder_bottom].query_if_snake_head() == True:
             ladder_bottom = randrange(2, len(list_of_squares) - 10) - 1
-            is_ladder_bottom_square_free = list_of_squares[ladder_bottom].query_is_free()
         #randomise square that will be the top of the ladder
         ladder_top = randrange(ladder_bottom+10, len(list_of_squares)-1) - 1
-        is_ladder_top_square_free = list_of_squares[ladder_top].query_is_free()
         #check if the square is already a snake head, snake tail or bottom of the ladder
-        while not is_ladder_top_square_free:
+        while list_of_squares[ladder_top].query_if_ladder_bottom() == True or list_of_squares[ladder_top].query_if_snake_tail() == True or list_of_squares[ladder_top].query_if_snake_head() == True:
             ladder_top = randrange(ladder_bottom+10, len(list_of_squares)-1) - 1
-            is_ladder_top_square_free = list_of_squares[ladder_top].query_is_free()
         #use the class method to set the ladder for the square
         list_of_squares[ladder_bottom].set_ladder_bottom(list_of_squares[ladder_top])
-
-def dice_roll(number_of_dice):
-    result = 0
-    for dice in range(1, number_of_dice+1):
-        result += randrange(1,7)
-    return result
 
 #the start_game function initialises the dictionary and 1st grid 
 def start_game_for_each_player(player_dictionary, player, grid):

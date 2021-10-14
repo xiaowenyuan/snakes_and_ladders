@@ -173,6 +173,14 @@ def set_board_ladders(n, list_of_squares):
         #use the class method to set the ladder for the square
         list_of_squares[ladder_bottom].set_ladder_bottom(list_of_squares[ladder_top])
 
+
+
+def dice_roll(number_of_dice):
+    result = 0
+    for dice in range(1, number_of_dice+1):
+        result += randrange(1,7)
+    return result
+
 #the start_game function initialises the dictionary and 1st grid 
 def start_game_for_each_player(player_dictionary, player, grid):
     #every player starts at square 1

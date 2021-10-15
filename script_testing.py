@@ -157,11 +157,11 @@ def generate_squares(n):
 def set_board_snakes(n, list_of_squares):
     row_length = int(sqrt(len(list_of_squares)))
     print(f'Setting {n} snakes...')
-    for i in range(n):
-        #print(f'Looping the outer for loop ... loop number {i+1} out of {n}')
+    for i in range(0, n):
+        print(f'Looping the outer for loop ... loop number {i+1} out of {n}')
         square_index_for_snake_head = randrange(row_length, len(list_of_squares) - 1)
         while list_of_squares[square_index_for_snake_head].query_is_free() == False:
-            #print(f'COLLISION FOUND! Entering while loop to change snake head square index {square_index_for_snake_head} which is square label {list_of_squares[square_index_for_snake_head].get_label()}')
+            print(f'COLLISION FOUND! Entering while loop to change snake head square index {square_index_for_snake_head} which is square label {list_of_squares[square_index_for_snake_head].get_label()}')
             square_index_for_snake_head = randrange(row_length, len(list_of_squares) - 1)
         #make a list of possible indexes for snake tail
         snake_tail_list = range(1, square_index_for_snake_head)
@@ -186,35 +186,39 @@ def set_board_snakes(n, list_of_squares):
 def set_board_ladders(n, list_of_squares):
     row_length = int(sqrt(len(list_of_squares)))
     print(f'Setting {n} ladders...')
-    for i in range(n):
-        #print(f'\n Looping the outer for loop ... loop number {i+1} out of {n}')
-        #print('--->Setting ladder bottom...<---')
+    for i in range(0, n):
+        print(f'\n Looping the outer for loop ... loop number {i+1} out of {n}')
+        print('--->Setting ladder bottom...<---')
         ladder_bottom_list = range(1, len(list_of_squares) - row_length)
         ladder_bottom_list = [square for square in ladder_bottom_list if list_of_squares[square].query_is_free()]
-        #print('Possible square indexes for ladder bottom are:')
-        #print(ladder_bottom_list)
+        print('Possible square indexes for ladder bottom are:')
+        print(ladder_bottom_list)
         if len(ladder_bottom_list) == 0 :
             possible_square_index_for_ladder_bottom = None
         else:
             possible_square_index_for_ladder_bottom = choice(ladder_bottom_list)
             ladder_top_list = range(possible_square_index_for_ladder_bottom + row_length, len(list_of_squares) - 1)
-            ladder_top_list = [square for square in ladder_top_list if list_of_squares[square].query_is_free()]
+            ladder_top_list = [i for i in ladder_top_list if list_of_squares[i].query_is_free()]
+            print(f'If we pick {possible_square_index_for_ladder_bottom}, this is the possible list of possible square index for ladder top:')
+            print(ladder_top_list)
             ladder_bottom_while_loop_count = 1
             #check if the possible ladder botom index will + row_length = the last index of the grid or if the length of possible ladder top indexes list is 0
             while possible_square_index_for_ladder_bottom + row_length == len(list_of_squares) - 1 or len(ladder_top_list) == 0:
-                #print(f'Entering inner while loop for the ladder bottom as {possible_square_index_for_ladder_bottom} cannot be chosen')
+                print(f'Entering inner while loop for the ladder bottom as {possible_square_index_for_ladder_bottom} cannot be chosen')
                 #removing the conflicted possible square index from ladder_bottom_list
                 ladder_bottom_list = [square for square in ladder_bottom_list if square is not possible_square_index_for_ladder_bottom]
                 if len(ladder_bottom_list) == 0 :
                     possible_square_index_for_ladder_bottom = None
                     break
-                #print('Revised square indexes for ladder bottom are:')
-                #print(ladder_bottom_list)
+                print('Revised square indexes for ladder bottom are:')
+                print(ladder_bottom_list)
                 possible_square_index_for_ladder_bottom = choice(ladder_bottom_list)
                 #regenerating ladder_top_list to check for the while loop
                 ladder_top_list = range(possible_square_index_for_ladder_bottom + row_length, len(list_of_squares) - 1)
                 ladder_top_list = [square for square in ladder_top_list if list_of_squares[square].query_is_free()]
-                #print(f'Picking {possible_square_index_for_ladder_bottom} as possible square index')
+                print(f'Picking {possible_square_index_for_ladder_bottom} as possible square index')
+                print(f'If we pick {possible_square_index_for_ladder_bottom}, this is the possible list of possible square index for ladder top:')
+                print(ladder_top_list)
                 ladder_bottom_while_loop_count += 1
                 if ladder_bottom_while_loop_count > len(list_of_squares):
                     possible_square_index_for_ladder_bottom = None
@@ -222,12 +226,11 @@ def set_board_ladders(n, list_of_squares):
         square_index_for_ladder_bottom = possible_square_index_for_ladder_bottom
         if square_index_for_ladder_bottom != None:
             #if the index is not None, then pick the ladder top
-            #print(f'Square index {square_index_for_ladder_bottom} is picked for ladder bottom')
-            #print(list_of_squares)
-            #print('--->Setting ladder top...<---')
-            #make a list of available squares to be chosen for ladder top
-            #print('Possible square indexes for ladder top are:')
-            #print(ladder_top_list)
+            print(f'Square index {square_index_for_ladder_bottom} is picked for ladder bottom')
+            print(list_of_squares)
+            print('--->Setting ladder top...<---')
+            print('Possible square indexes for ladder top are:')
+            print(ladder_top_list)
             if len(ladder_top_list) == 0:
                 if i > 0:
                     print(f'No possible square that can be set for ladder {i}. Only {i-1} ladders are set on the board.')
@@ -235,10 +238,10 @@ def set_board_ladders(n, list_of_squares):
                     print(f'No possible square that can be set for ladder. {i} ladder is set on the board.')
                 break
             square_index_for_ladder_top = choice(ladder_top_list)
-            #print(f'Square index {square_index_for_ladder_top} is chosen as ladder top to ladder bottom index {square_index_for_ladder_bottom}')
+            print(f'Square index {square_index_for_ladder_top} is chosen as ladder top to ladder bottom index {square_index_for_ladder_bottom}')
             # use the class method to set the ladder for the square
             list_of_squares[square_index_for_ladder_bottom].set_ladder_bottom(list_of_squares[square_index_for_ladder_top])
-            #print(list_of_squares)
+            print(list_of_squares)
         else:
             if i > 0:
                 print(f'No possible square that can be set for ladder {i}. Only {i-1} ladders are set on the board.')

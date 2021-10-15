@@ -18,6 +18,16 @@ The board can be re-generated prior to the gameplay if the players are not happy
 
 The player wins if they roll more than the required amount of steps to reach the end square (ie if `s` is the steps to the end square, player wins as long as `dice_roll > s`). There is no need to roll a precise amount. 
 
+## The Board
+After each dice roll, the script will print out the current state of the board. Each square is numbered, and may contain the following letters at the right side of the number: 
+
+* `SHXX`: this refers to Snake Head. The number `XX` refers to where the snake tail (and hence the square the player will end up on) is.
+* `ST`: this refers to Snake Tail.
+* `LBXX`: this refers to Ladder Bottom. The number `XX` refers to where the ladder top (and hence the square the player will end up on) is.
+* `LT`: this refers to Ladder Top.
+
+The left side of each square number may show the players' tokens. Players can occupy the same square without any consequences. 
+
 ## Files
 * `script.py`: This is the file that runs the game.
 * `test.py`: This file contains testing functions, specifically the generation of snakes and ladders. 

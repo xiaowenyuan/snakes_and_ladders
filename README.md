@@ -1,9 +1,9 @@
 # snakes_and_ladders
 
-##Introduction
+## Introduction
 This is a simple Python project that I made for practice. To run it, simply call the file `script.py` in the terminal. In each round, the board's snakes and ladders will be generated randomly.
 
-##Gameplay
+## Gameplay
 Up to four people can play the game. Theoretically, there should be no limit on the number of players, but the wait time between the players will be too long if too many players are involved. 
 
 The player can choose to set the size of the square board (`n*n`) limited between 8x8 to 12x12. Both lower and upper limits are theoretical; too low and it jeopardises the number of snakes and ladders that can be set on the board, and too high and it makes gameplay too long while the grid will also not fit in a standard terminal.
@@ -18,7 +18,7 @@ The board can be re-generated prior to the gameplay if the players are not happy
 
 The player wins if they roll more than the required amount of steps to reach the end square (ie if `s` is the steps to the end square, player wins as long as `dice_roll > s`). There is no need to roll a precise amount. 
 
-##Files
+## Files
 * `script.py`: This is the file that runs the game.
 * `test.py`: This file contains testing functions, specifically the generation of snakes and ladders. 
 * `script_testing.py`: This file is a carbon copy of `script.py`, except that `print` statements are uncommented. This file is used for testing. 
